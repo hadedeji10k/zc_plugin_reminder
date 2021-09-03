@@ -11,6 +11,7 @@ import { StatusCodes } from 'http-status-codes'
 import { MESSAGE } from '@utils/constant'
 import axios from 'axios'
 import makeDb from '../db'
+import getUser from '@utils/user'
 
 const { GET_ALL_REMINDERS } = MESSAGE
 
@@ -32,6 +33,17 @@ const reminderController = {
 			data.statusText,
 			data.status === 200
 		)
+	},
+	getUser: async (req, res, next) => {
+		try {
+			const { token } = req.body
+			const user = await getUser(token)
+			Response.send(res, StatusCodes.OK, user, 'User gotten successfully')
+		} catch (error) {
+			res.status(400).json({
+				message: 'Error occured retrieving users',
+			})
+		}
 	},
 }
 

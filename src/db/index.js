@@ -23,5 +23,17 @@ export default function makeDb() {
 		return data
 	}
 
-	return Object.freeze({ findAll })
+	async function findById({ id }) {
+		try {
+			const res = await axios({
+				url: `${getDevBaseUrl()}/data/read/${PLUGIN_ID}/${COLLE}/${ORG_ID}?object_id=${id}`,
+				method: 'get',
+			})
+			return res.data.data
+		} catch (error) {
+			return error.response.data
+		}
+	}
+
+	return Object.freeze({ findAll, findById})
 }

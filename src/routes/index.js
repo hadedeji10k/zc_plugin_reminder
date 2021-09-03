@@ -6,6 +6,7 @@
 
 import { Router } from 'express'
 import reminderController from '@controllers/reminder.controller'
+import { tokenSchema } from '@validations/reminder.validation'
 
 const router = Router()
 
@@ -13,5 +14,6 @@ router.get('/ping', (req, res) =>
 	res.json({ message: 'Hello! You have found the zc_plugin_reminder api' })
 )
 router.route('/reminders').get(reminderController.getAll)
+router.get('/user', tokenSchema, reminderController.getUser)
 
 export default router

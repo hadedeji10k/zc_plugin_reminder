@@ -14,4 +14,11 @@ const reminderSchema = async (req, res, next) => {
 	return validateBodyRequest(req, next, schema)
 }
 
-export default reminderSchema
+const tokenSchema = async (req, res, next) => {
+	const schema = Joi.object({
+		token: Joi.string().trim().required().label('Description'),
+	})
+	return validateBodyRequest(req, next, schema)
+}
+
+export { reminderSchema, tokenSchema }
